@@ -1,15 +1,19 @@
-# Wordulo.us
+# Vocabulizer.com
 
 Expand your vocabulary through repitition.
 
-This is a work in progress.
+_This is a work in progress._
 
-## Project goals
+## Goals
 
 * Expand my vocabulary (ovbiously)
 * Fill a niche for a customizable and social vocabulary home page
 * Learn about connecting to some external APIs
 * Provide a mobile site version
+* Learn CoffeeScript
+* Try out my new hosting VPS without disrupting any of my existing sites
+* Use Pry as an irb replacement
+* Do testing with Guard and Spork
 
 ## Contact
 

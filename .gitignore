@@ -1,0 +1,9 @@
+/.bundle
+/db/*.sqlite3
+/config/database.yml
+/log/*.log
+/tmp
+.DS_Store
+.sass-cache
+.rvmrc
+*.sublime-workspace
