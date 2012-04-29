@@ -1,7 +1,7 @@
 if Rails.env.development?
 
   puts "Destroying all exiting data"
-  CustomDefinition.destroy_all
+  Definition.destroy_all
   Term.destroy_all
   User.destroy_all
 
@@ -12,10 +12,10 @@ if Rails.env.development?
 
   puts "Creating term and defintion for 'fremdschamen'"
   term = user.terms.create! :value => "fremdschamen"
-  #term.defintion << CustomDefinition.new :body => "Shame felt for actions done by someone else"
+  CustomDefinition.create! :body => "Shame felt for actions done by someone else", :term => term
 
   puts "Creating new term and definition for 'Go Pear Shaped'"
-  term = user.terms.create! :value => "Go Pear Shaped"
+  term = user.terms.create! :value => "Go Pear Shaped", :phrase => true
 
 
   puts "Done"

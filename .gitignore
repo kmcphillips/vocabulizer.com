@@ -3,6 +3,7 @@
 /db/*.sql
 /db/schema.rb
 /config/database.yml
+/config/configuration.yml
 /log/*.log
 /tmp
 .DS_Store
