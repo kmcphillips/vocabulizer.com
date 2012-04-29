@@ -12,11 +12,12 @@ if Rails.env.development?
 
   puts "Creating term and defintion for 'fremdschamen'"
   term = user.terms.create! :value => "fremdschamen"
-  CustomDefinition.create! :body => "Shame felt for actions done by someone else", :term => term
+  Definition.create! :body => "Shame felt for actions done by someone else", :term => term
+  UrbanDefinition.create! :body => "The worst feeling ever.", :term => term, :example => "I can't go through the fremdschamen of another Karaoke night"
 
   puts "Creating new term and definition for 'Go Pear Shaped'"
   term = user.terms.create! :value => "Go Pear Shaped", :phrase => true
-
+  CustomDefinition.create! :body => "Somehing goes wrong or badly", :term => term, :user => user
 
   puts "Done"
 end

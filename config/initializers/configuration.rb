@@ -1,7 +1,7 @@
 module Configuration
 
   def self.load(file)
-    @config = YAML.load_file(file)[Rails.env].with_indifferent_access
+    @config = (YAML.load_file(file)[Rails.env] || {}).with_indifferent_access
   end
 
   def self.method_missing(method, *args)

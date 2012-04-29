@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  let(:user){ Factory(:user) }
+  let(:user){ FactoryGirl.create(:user) }
 
   describe "#public?" do
     it "should return the oposite of private" do

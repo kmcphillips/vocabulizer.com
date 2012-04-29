@@ -8,5 +8,6 @@ FactoryGirl.define do
     current_sign_in_at Time.now
     last_sign_in_at Time.now - 1.day
     password "testtest"
+    
   end
 end

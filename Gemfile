@@ -36,4 +36,10 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'awesome_print'
   gem 'pry'
+
+  if RUBY_PLATFORM.include? "darwin"
+    gem 'growl'
+  elsif RUBY_PLATFORM.include? "linux"
+    gem 'libnotify'
+  end
 end

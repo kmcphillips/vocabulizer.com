@@ -1,8 +1,5 @@
 class CustomDefinition < Definition
 
-  belongs_to :term
-
-  validates :body, :presence => true
-
+  belongs_to :user
 
 end
