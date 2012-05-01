@@ -26,8 +26,8 @@ group :assets do
 end
 
 group :development, :test do
-	gem 'unicorn'
-	gem 'rspec', '>= 2.0.0'
+  gem 'unicorn'
+  gem 'rspec', '>= 2.0.0'
   gem 'rspec-rails', '>= 2.0.0'
   gem 'spork'
   gem 'guard'
@@ -40,6 +40,7 @@ group :development, :test do
   if RUBY_PLATFORM.include? "darwin"
     gem 'growl'
   elsif RUBY_PLATFORM.include? "linux"
-    gem 'libnotify'
+    gem "rb-inotify"
+    gem "libnotify"
   end
 end
