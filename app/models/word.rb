@@ -1,0 +1,3 @@
+class Word < Term
+
+end

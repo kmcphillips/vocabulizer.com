@@ -1,0 +1,3 @@
+class Phrase < Term
+
+end

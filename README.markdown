@@ -11,7 +11,6 @@ _This is a work in progress._
 * Learn about connecting to some external APIs
 * Provide a mobile site version
 * Learn CoffeeScript
-* Try out my new hosting VPS without disrupting any of my existing sites
 * Use Pry as an irb replacement
 * Do testing with Guard and Spork
 
