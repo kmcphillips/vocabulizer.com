@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Term do
-  
   describe "#populate_details!" do
     before(:each) do
       UrbanDictionary.stub(:define).and_return(nil)

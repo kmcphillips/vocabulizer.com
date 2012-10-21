@@ -14,6 +14,13 @@ _This is a work in progress._
 * Use Pry as an irb replacement
 * Do testing with Guard and Spork
 
+## Requirements
+
+Setup the config/configuration.yml file for your environment with the following:
+
+* Wordnik API key
+
+
 ## Contact
 
 Kevin McPhillips github@kevinmcphillips.ca
