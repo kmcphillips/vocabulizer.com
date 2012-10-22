@@ -10,6 +10,13 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
 
+  %nav.main
+    %ul
+      %li= link_to "Home", root_path
+      - if current_user
+        %li= link_to "Terms", terms_path
+        %li= link_to "Learn", learn_path(current_user.username)
+
   %body
 
     %p.notice= notice
@@ -17,3 +24,10 @@
 
     = yield
 
+
+  %footer
+    - if current_user
+      = current_user.username
+      = link_to "Logout", destroy_user_session_path, method: :delete
+    - else
+      = link_to "Login", new_user_session_path

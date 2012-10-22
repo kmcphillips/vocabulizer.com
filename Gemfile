@@ -27,8 +27,8 @@ group :assets do
 end
 
 group :development, :test do
-	gem 'thin'
-	gem 'rspec', '>= 2.0.0'
+  gem 'thin'
+  gem 'rspec', '>= 2.0.0'
   gem 'rspec-rails', '>= 2.0.0'
   gem 'spork'
   gem 'guard'
@@ -40,6 +40,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'factory_girl'
   gem 'factory_girl_rails'
+  gem 'quiet_assets'
 end
 
 group :linux do
