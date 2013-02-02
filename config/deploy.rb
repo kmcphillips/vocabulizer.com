@@ -1,5 +1,5 @@
 set :application, "Vocabulizer"
-set :repository,  "git://github.com/kimos/vocabulizer.com.git"
+set :repository,  "git://github.com/kmcphillips/vocabulizer.com.git"
 set :deploy_to, "/home/kevin/vocabulizer.com"
 set :user, "kevin"
 set :use_sudo, false
