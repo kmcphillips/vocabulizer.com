@@ -9,14 +9,15 @@ _This is a work in progress._
 * Expand my vocabulary (ovbiously)
 * Fill a niche for a customizable and social vocabulary home page
 * Learn about connecting to some external APIs
-* Provide a mobile site version
-* Learn CoffeeScript
-* Use Pry as an irb replacement
-* Do testing with Guard and Spork
+* Learn PostgreSQL, or at least enough to use it through AR
+* Learn Test::Unit/Minitest (I know it's weird, but I have always used rspec)
+* Learn Kaminari
+* Possibly provide a mobile site version
+
 
 ## Requirements
 
-Setup the config/configuration.yml file for your environment with the following:
+Setup the settings.yml file for your environment with the following:
 
 * Wordnik API key
 

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :username, :password, :password_confirmation, :remember_me, :login
   attr_accessor :login
-  
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable #, :validatable
 
   has_many :terms
@@ -17,14 +17,12 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :if => :password_required?
   validates_length_of :password, :within => Devise.password_length, :allow_blank => true
 
+
   protected
+
   def password_required?
     !persisted? || !password.nil? || !password_confirmation.nil?
   end
-  public
-
-
-
 
   class << self
 

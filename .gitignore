@@ -3,10 +3,12 @@
 /db/*.sql
 /db/schema.rb
 /config/database.yml
-/config/configuration.yml
 /log/*.log
 /tmp
 .DS_Store
 .sass-cache
 .rvmrc
 *.sublime-workspace
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml

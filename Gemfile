@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.12'
 
 gem 'mysql2'
 gem 'json'
@@ -11,6 +11,7 @@ gem 'haml-rails'
 gem 'sass'
 gem 'kaminari'
 gem 'devise'
+gem 'rails_config'
 
 # Datasources
 gem 'wordnik'
@@ -20,21 +21,19 @@ group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
-
   gem 'execjs'
   gem 'therubyracer'
-  gem 'barista'
 end
 
 group :development, :test do
   gem 'thin'
-  gem 'rspec', '>= 2.0.0'
-  gem 'rspec-rails', '>= 2.0.0'
+  gem 'test-unit'
   gem 'spork'
   gem 'guard'
   gem 'guard-spork'
-  gem 'guard-rspec'
-  gem 'haml-rails'
+  gem 'guard-test'
+  gem 'ruby-prof'
+  gem 'database_cleaner'
   gem 'awesome_print'
   gem 'pry'
   gem 'pry-rails'
@@ -43,6 +42,14 @@ group :development, :test do
   gem 'quiet_assets'
 end
 
+group :darwin do
+  gem 'rb-fsevent'
+  gem 'growl'
+  # gem 'ruby_gntp'
+  # gem 'growl_notify'
+end
+
 group :linux do
   gem 'rb-inotify'
+  gem 'libnotify'
 end
