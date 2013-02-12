@@ -12,10 +12,30 @@ class Term < ActiveRecord::Base
   before_validation :set_base_value, on: :create
 
 
-  def populate_details!
-    # For now we'll just destroy all, but we probably won't want to do that later.
-    self.details.destroy_all
+  def populate_details
+    if self.details.any?
+      false
+    else
+      populate_from_wordnik
+      populate_from_urban_dictionary
+      true
+    end
+  end
 
+  def populate_details!
+    self.details.destroy_all  # For now we'll just destroy all, but we probably won't want to do that later.
+    populate_details
+  end
+
+  protected
+
+  def set_base_value
+    self.base_value = self.value.downcase.gsub(/(^[\W\s]+)|([\W\s]+$)/, "").singularize if self.base_value.blank?
+
+    true
+  end
+
+  def populate_from_wordnik
     Wordnik.word.get_definitions(self.base_value, limit: 6, useCanonical: 'true').each do |entry|
       if entry["citations"].present? # && entry["sourceDictionary"] == "wiktionary"
         example = entry["citations"].map{|c| c["cite"] }.join(" \n")
@@ -32,22 +52,16 @@ class Term < ActiveRecord::Base
     rescue ClientError => e
       raise e unless e.message == "No top example found" # Handle missing examples, but raise every other error
     end
+  end
 
+  def populate_from_urban_dictionary(max_entries=3)
     if(urban_word = UrbanDictionary.define(self.base_value))
-      urban_word.entries.each do |entry|
-        self.details.create! definition: entry.definition, example: entry.example, source: "Urban Dictionary"
+      urban_word.entries.each_with_index do |entry, index|
+        if index < max_entries
+          self.details.create! definition: entry.definition, example: entry.example, source: "Urban Dictionary"
+        end
       end
     end
-
-    true
   end
 
-
-  protected
-
-  def set_base_value
-    self.base_value = self.value.downcase.gsub(/(^[\W\s]+)|([\W\s]+$)/, "").singularize if self.base_value.blank?
-
-    true
-  end
 end

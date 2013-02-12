@@ -28,12 +28,12 @@ end
 group :development, :test do
   gem 'thin'
   gem 'test-unit'
+  gem 'mocha', '~> 0.12.8', require: false  # Staying below 0.13.x until the deprication warnings are fixed.
   gem 'spork'
   gem 'guard'
   gem 'guard-spork'
   gem 'guard-test'
   gem 'ruby-prof'
-  gem 'database_cleaner'
   gem 'awesome_print'
   gem 'pry'
   gem 'pry-rails'
@@ -50,6 +50,6 @@ group :darwin do
 end
 
 group :linux do
-  gem 'rb-inotify'
+  gem 'rb-inotify', '~> 0.8.8'
   gem 'libnotify'
 end
