@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022014348) do
+ActiveRecord::Schema.define(:version => 20130212135414) do
 
   create_table "term_details", :force => true do |t|
     t.integer  "term_id"
@@ -29,13 +29,17 @@ ActiveRecord::Schema.define(:version => 20121022014348) do
     t.string   "base_value"
     t.string   "type"
     t.string   "creator_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "top",        :default => false
+    t.boolean  "urban",      :default => false
   end
 
   add_index "terms", ["base_value"], :name => "index_terms_on_base_value"
   add_index "terms", ["creator_id"], :name => "index_terms_on_creator_id"
+  add_index "terms", ["top"], :name => "index_terms_on_top"
   add_index "terms", ["type"], :name => "index_terms_on_type"
+  add_index "terms", ["urban"], :name => "index_terms_on_urban"
   add_index "terms", ["value"], :name => "index_terms_on_value"
 
   create_table "users", :force => true do |t|

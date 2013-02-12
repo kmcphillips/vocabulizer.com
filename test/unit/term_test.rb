@@ -12,6 +12,28 @@ class TermTest < ActiveSupport::TestCase
     term
   end
 
+
+  test "scope #include_urban should return all by default" do
+    FactoryGirl.create(:term, urban: true)
+    FactoryGirl.create(:term, urban: false)
+    assert_equal Term.include_urban.size, 2
+  end
+
+  test "scope #include_urban should not return the ones flagged as urban if false passed in" do
+    FactoryGirl.create(:term, urban: true)
+    FactoryGirl.create(:term, urban: false)
+    assert_equal Term.include_urban(false).size, 1
+  end
+
+
+  test "scope #top_first should sort by top" do
+    other = FactoryGirl.create(:term, top: false)
+    top = FactoryGirl.create(:term, top: true)
+    assert_equal Term.all, [other, top]
+    assert_equal Term.top_first, [top, other]
+  end
+
+
   test "#populate_details should just return false if there are already some details" do
     term = valid_term_with_details
     term.expects(:populate_from_wordnik).never

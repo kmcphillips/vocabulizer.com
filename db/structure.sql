@@ -82,7 +82,9 @@ CREATE TABLE terms (
     type character varying(255),
     creator_id character varying(255),
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    top boolean DEFAULT false,
+    urban boolean DEFAULT false
 );
 
 
@@ -213,10 +215,24 @@ CREATE INDEX index_terms_on_creator_id ON terms USING btree (creator_id);
 
 
 --
+-- Name: index_terms_on_top; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_terms_on_top ON terms USING btree (top);
+
+
+--
 -- Name: index_terms_on_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_terms_on_type ON terms USING btree (type);
+
+
+--
+-- Name: index_terms_on_urban; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_terms_on_urban ON terms USING btree (urban);
 
 
 --
@@ -263,3 +279,5 @@ INSERT INTO schema_migrations (version) VALUES ('20121021192205');
 INSERT INTO schema_migrations (version) VALUES ('20121021195055');
 
 INSERT INTO schema_migrations (version) VALUES ('20121022014348');
+
+INSERT INTO schema_migrations (version) VALUES ('20130212135414');
