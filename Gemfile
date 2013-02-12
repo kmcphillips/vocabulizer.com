@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-gem 'mysql2'
+gem 'pg'
 gem 'json'
 gem 'jquery-rails'
 gem 'capistrano'
