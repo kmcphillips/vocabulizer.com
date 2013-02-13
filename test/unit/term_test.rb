@@ -13,27 +13,6 @@ class TermTest < ActiveSupport::TestCase
   end
 
 
-  test "scope #include_urban should return all by default" do
-    FactoryGirl.create(:term, urban: true)
-    FactoryGirl.create(:term, urban: false)
-    assert_equal Term.include_urban.size, 2
-  end
-
-  test "scope #include_urban should not return the ones flagged as urban if false passed in" do
-    FactoryGirl.create(:term, urban: true)
-    FactoryGirl.create(:term, urban: false)
-    assert_equal Term.include_urban(false).size, 1
-  end
-
-
-  test "scope #top_first should sort by top" do
-    other = FactoryGirl.create(:term, top: false)
-    top = FactoryGirl.create(:term, top: true)
-    assert_equal Term.all, [other, top]
-    assert_equal Term.top_first, [top, other]
-  end
-
-
   test "#populate_details should just return false if there are already some details" do
     term = valid_term_with_details
     term.expects(:populate_from_wordnik).never
@@ -58,16 +37,24 @@ class TermTest < ActiveSupport::TestCase
   end
 
 
-  test "#set_base_value should not change anything if there is already a base value" do
-    term = FactoryGirl.create(:term, base_value: "cake")
-    term.send(:set_base_value)
-    assert_equal term.base_value, "cake"
+  test "class #base_value should not change anything if it's already a simple word" do
+    assert_equal Term.base_value("cake"), "cake"
   end
 
-  test "#set_base_value should scrub and set the base value on create" do
-    term = FactoryGirl.create(:term, base_value: nil, value: "  TREES...")
-    term.send(:set_base_value)
-    assert_equal term.base_value, "tree"
+  test "class #base_value should scrub and set the base value on create" do
+    assert_equal Term.base_value("  TREES..."), "tree"
+  end
+
+
+  test "#set_base_value should set the base value if it is not set" do
+    Term.expects(:base_value).with("pie").returns("delicious")
+    term = FactoryGirl.create(:term, value: "pie", base_value: nil)
+    assert_equal term.base_value, "delicious"
+  end
+
+  test "#set_base_value should not change anything if it is already set" do
+    term = FactoryGirl.create(:term, value: "pie", base_value: "delicious")
+    assert_equal term.base_value, "delicious"
   end
 
   test "#set_base_value should return true since it is a callback, just to be safe" do
@@ -80,8 +67,45 @@ class TermTest < ActiveSupport::TestCase
   end
 
 
+  def mock_urban_result
+    stub(entries: [
+      stub(definition: "a", example: "example a"),
+      stub(definition: "b", example: "example b"),
+      stub(definition: "c", example: nil),
+      stub(definition: "d", example: nil)
+    ])
+  end
+
   test "#populate_from_urban_dictionary should test the call to the service" do
-    pending "Test the service"
+    UrbanDictionary.expects(:define).with("pie").returns(mock_urban_result)
+    term = FactoryGirl.create(:term)
+    term.send(:populate_from_urban_dictionary)
+    assert_equal term.details.size, 3
+  end
+
+  test "#populate_from_urban_dictionary should limit to the number passed in" do
+    UrbanDictionary.expects(:define).with("pie").returns(mock_urban_result)
+    term = FactoryGirl.create(:term)
+    term.send(:populate_from_urban_dictionary, 2)
+    assert_equal term.details.size, 2
+  end
+
+  test "#populate_from_urban_dictionary should pass if no entries are found" do
+    UrbanDictionary.expects(:define).with("pie").returns(nil)
+    term = FactoryGirl.create(:term)
+    term.send(:populate_from_urban_dictionary)
+    assert_equal term.details.size, 0
+  end
+
+  test "#populate_from_urban_dictionary should pull in the expected fields" do
+    UrbanDictionary.expects(:define).with("pie").returns(mock_urban_result)
+    term = FactoryGirl.create(:term)
+    term.send(:populate_from_urban_dictionary)
+    detail = term.details.where(definition: "a").first
+    assert_not_nil detail
+    assert_equal detail.example, "example a"
+    assert_equal detail.source, "Urban Dictionary"
+    assert detail.urban
   end
 
 end

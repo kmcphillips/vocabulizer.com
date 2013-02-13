@@ -1,5 +1,5 @@
 class Term < ActiveRecord::Base
-  attr_accessible :value, :base_value, :creator, :creator_id, :urban, :top
+  attr_accessible :value, :base_value, :creator, :creator_id
 
   has_many :term_details
   alias_method :details, :term_details
@@ -10,9 +10,6 @@ class Term < ActiveRecord::Base
   validates :base_value, presence: true
 
   before_validation :set_base_value, on: :create
-
-  scope :include_urban, lambda{|flag=true| flag ? scoped : where(urban: false)}
-  scope :top_first, order("top DESC")
 
 
   def populate_details
@@ -30,11 +27,19 @@ class Term < ActiveRecord::Base
     populate_details
   end
 
+
+  class << self
+
+    def base_value(value)
+      value.downcase.gsub(/(^[\W\s]+)|([\W\s]+$)/, "").singularize
+    end
+
+  end
+
   protected
 
   def set_base_value
-    self.base_value = self.value.downcase.gsub(/(^[\W\s]+)|([\W\s]+$)/, "").singularize if self.base_value.blank?
-
+    self.base_value = Term.base_value(self.value) if self.base_value.blank?
     true
   end
 
